@@ -1,5 +1,9 @@
 packages:
-  - .
+  - "apps/*"
+  - "packages/*"
+catalogs:
+  prisma:
+    prisma: latest
 ignoredBuiltDependencies:
   - sharp
   - unrs-resolver
