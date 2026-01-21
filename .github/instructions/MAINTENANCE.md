@@ -17,7 +17,6 @@ Local verification (quick)
 Run these locally before opening a PR:
 
 ```bash
-cd my-app
 pnpm ci
 pnpm run lint
 pnpm run typecheck
