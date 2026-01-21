@@ -1,0 +1,92 @@
+---
+title: Nurtaura - Authentication Flow (Sequence Diagram)
+---
+
+%%{init: {'theme':'base', 'themeVariables': {'actorBkg':'#e3f2fd','actorBorder':'#1976d2','actorTextColor':'#000','actorLineColor':'#666','signalColor':'#333','signalTextColor':'#000','labelBoxBkgColor':'#e8f5e9','labelBoxBorderColor':'#388e3c','labelTextColor':'#000','loopTextColor':'#000','noteBkgColor':'#fff9c4','noteBorderColor':'#f57f17','noteTextColor':'#000','activationBkgColor':'#fff3e0','activationBorderColor':'#f57c00','sequenceNumberColor':'#fff'}}}%%
+
+sequenceDiagram
+    actor User
+    participant Web as Web App
+    participant API as Next.js API
+    participant Auth as Clerk Auth
+    participant DB as PostgreSQL
+    participant Cache as Session Cache
+
+    %% Sign Up Flow
+    rect rgb(230, 242, 255)
+        Note over User,Cache: Sign Up Flow
+        User->>Web: Enter email & password
+        Web->>Web: Validate input (Zod)
+        Web->>API: POST /api/auth/signup
+        API->>API: Validate credentials
+        API->>Auth: createUser()
+        Auth->>DB: INSERT user record
+        DB-->>Auth: User created
+        Auth->>Auth: Send verification email
+        Auth-->>API: User + Session
+        API->>Cache: Store session (15 min)
+        API-->>Web: JWT tokens (access + refresh)
+        Web->>Web: Store tokens (httpOnly)
+        Web-->>User: Redirect to onboarding
+    end
+
+    %% Login Flow
+    rect rgb(232, 245, 233)
+        Note over User,Cache: Login Flow
+        User->>Web: Enter credentials
+        Web->>API: POST /api/auth/login
+        API->>Auth: signInWithPassword()
+        Auth->>DB: Verify credentials
+        DB-->>Auth: User authenticated
+        Auth-->>API: Session + Tokens
+        API->>Cache: Store session
+        API->>DB: Log auth event
+        API-->>Web: JWT tokens
+        Web->>Web: Store tokens
+        Web-->>User: Redirect to dashboard
+    end
+
+    %% Token Refresh Flow
+    rect rgb(255, 243, 224)
+        Note over User,Cache: Token Refresh Flow
+        User->>Web: Access protected route
+        Web->>Web: Check token expiry
+        Web->>API: POST /api/auth/refresh
+        Note right of API: Access token expired
+        API->>Auth: refreshSession()
+        Auth->>DB: Validate refresh token
+        DB-->>Auth: Token valid
+        Auth-->>API: New access token
+        API->>Cache: Update session
+        API-->>Web: New JWT token
+        Web->>Web: Update stored token
+        Web-->>User: Continue to route
+    end
+
+    %% OAuth Flow (Google)
+    rect rgb(252, 228, 236)
+        Note over User,Cache: OAuth2 Flow (Google)
+        User->>Web: Click "Sign in with Google"
+        Web->>Auth: signInWithOAuth(google)
+        Auth->>Auth: Redirect to Google
+        Auth-->>User: Google consent screen
+        User->>Auth: Grant permission
+        Auth->>DB: Create/update user
+        Auth->>API: OAuth callback
+        API->>Cache: Store session
+        API-->>Web: JWT tokens
+        Web-->>User: Redirect to dashboard
+    end
+
+    %% Logout Flow
+    rect rgb(224, 242, 241)
+        Note over User,Cache: Logout Flow
+        User->>Web: Click logout
+        Web->>API: POST /api/auth/logout
+        API->>Auth: signOut()
+        API->>Cache: Invalidate session
+        API->>DB: Log logout event
+        API-->>Web: Success
+        Web->>Web: Clear tokens
+        Web-->>User: Redirect to login
+    end

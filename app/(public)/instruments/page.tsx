@@ -1,4 +1,4 @@
-/*import { createClient } from "@/lib/supabase/server";
+import { createClient } from "@/lib/supabase/server";
 import { Suspense } from "react";
 
 async function InstrumentsData() {
@@ -14,4 +14,4 @@ export default function Instruments() {
       <InstrumentsData />
     </Suspense>
   );
-}*/
+}
