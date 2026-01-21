@@ -1,0 +1,40 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Header -->
+  <rect x="0" y="0" width="1200" height="80" fill="#F5F6FA" />
+  <text x="60" y="50" font-size="36" font-family="sans-serif" font-weight="bold" fill="#2D3748">Feedbask</text>
+  <text x="1050" y="50" font-size="20" font-family="sans-serif" fill="#4A5568" text-anchor="end">Sign In | Sign Up</text>
+
+  <!-- Hero Section -->
+  <rect x="0" y="80" width="1200" height="320" fill="#E3E8F0" />
+  <text x="600" y="180" font-size="48" font-family="sans-serif" font-weight="bold" fill="#2D3748" text-anchor="middle">Empowering Student & Admin Collaboration</text>
+  <text x="600" y="240" font-size="28" font-family="sans-serif" fill="#4A5568" text-anchor="middle">Manage feedback, streamline communication, and foster engagement</text>
+  <rect x="500" y="270" width="200" height="50" rx="25" fill="#3182CE" />
+  <text x="600" y="305" font-size="24" font-family="sans-serif" fill="#FFF" text-anchor="middle">Get Started</text>
+
+  <!-- Features Section -->
+  <g>
+    <rect x="120" y="420" width="300" height="220" rx="24" fill="#FFF" stroke="#CBD5E0" stroke-width="2" />
+    <text x="270" y="470" font-size="24" font-family="sans-serif" font-weight="bold" fill="#2D3748" text-anchor="middle">Feedback Collection</text>
+    <text x="270" y="510" font-size="18" font-family="sans-serif" fill="#4A5568" text-anchor="middle">Easily gather and manage feedback from students</text>
+    <circle cx="270" cy="570" r="32" fill="#3182CE" />
+    <text x="270" y="578" font-size="28" font-family="sans-serif" fill="#FFF" text-anchor="middle">💬</text>
+  </g>
+  <g>
+    <rect x="450" y="420" width="300" height="220" rx="24" fill="#FFF" stroke="#CBD5E0" stroke-width="2" />
+    <text x="600" y="470" font-size="24" font-family="sans-serif" font-weight="bold" fill="#2D3748" text-anchor="middle">Admin Dashboard</text>
+    <text x="600" y="510" font-size="18" font-family="sans-serif" fill="#4A5568" text-anchor="middle">Track, respond, and analyze interactions</text>
+    <circle cx="600" cy="570" r="32" fill="#38A169" />
+    <text x="600" y="578" font-size="28" font-family="sans-serif" fill="#FFF" text-anchor="middle">📊</text>
+  </g>
+  <g>
+    <rect x="780" y="420" width="300" height="220" rx="24" fill="#FFF" stroke="#CBD5E0" stroke-width="2" />
+    <text x="930" y="470" font-size="24" font-family="sans-serif" font-weight="bold" fill="#2D3748" text-anchor="middle">Engagement Tools</text>
+    <text x="930" y="510" font-size="18" font-family="sans-serif" fill="#4A5568" text-anchor="middle">Boost participation and transparency</text>
+    <circle cx="930" cy="570" r="32" fill="#D69E2E" />
+    <text x="930" y="578" font-size="28" font-family="sans-serif" fill="#FFF" text-anchor="middle">🤝</text>
+  </g>
+
+  <!-- Footer -->
+  <rect x="0" y="740" width="1200" height="60" fill="#F5F6FA" />
+  <text x="600" y="780" font-size="18" font-family="sans-serif" fill="#A0AEC0" text-anchor="middle">© 2026 Feedbask. All rights reserved.</text>
+</svg>
