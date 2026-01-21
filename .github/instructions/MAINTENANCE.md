@@ -10,7 +10,7 @@ CI/CD & Workflow (summary)
 --------------------------
 - Primary workflow: `.github/workflows/ci.yml`.
 - The CI runs on pushes and PRs to `main` and supports manual (`workflow_dispatch`).
-- It performs: dependency install, lint, typecheck, tests, build, and records `npm audit` results.
+- It performs: dependency install, lint, typecheck, tests, build, and records `pnpm audit` results.
 
 Local verification (quick)
 --------------------------
@@ -18,11 +18,11 @@ Run these locally before opening a PR:
 
 ```bash
 cd my-app
-npm ci
-npm run lint
-npm run typecheck
-npm test --if-present
-npm run build --if-present
+pnpm ci
+pnpm run lint
+pnpm run typecheck
+pnpm test --if-present
+pnpm run build --if-present
 ```
 
 When changing CI
