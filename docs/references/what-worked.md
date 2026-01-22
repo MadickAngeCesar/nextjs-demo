@@ -1,0 +1,2 @@
+- I'm implementing a full stack application using next.js and Supabase this application have suggestion module which will take students suggestions and send it to the administration with Gemini AI assistance. Help me generate its sequence diagram in mermaid format.
+- 

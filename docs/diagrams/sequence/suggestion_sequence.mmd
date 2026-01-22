@@ -1,0 +1,56 @@
+%% Suggestion module sequence diagram
+sequenceDiagram
+	participant Student as Student
+	participant Browser as Web App (UI)
+	participant NextJS as Next.js API
+	participant Supabase as Supabase (Auth/DB)
+	participant DB as Database (Prisma/Supabase)
+	participant Gemini as Gemini AI
+	participant Notif as Notification Service
+	participant Admin as Admin Dashboard
+
+	%% Student submits suggestion
+	Student->>Browser: Fill suggestion form & submit
+	Browser->>Supabase: (optional) attach auth token
+	Browser->>NextJS: POST /api/suggestions {content, userId, meta}
+
+	activate NextJS
+	NextJS->>Supabase: Verify auth / fetch user profile
+	NextJS->>DB: Insert suggestion (status: received)
+
+	%% Enrich using Gemini AI
+	NextJS->>Gemini: Request enhancement / summary / classification
+	activate Gemini
+	Gemini-->>NextJS: Enhanced text, tags, priority, suggestions
+	deactivate Gemini
+
+	NextJS->>DB: Update suggestion with AI result & metadata
+
+	%% Notify admin
+	NextJS->>Notif: Create admin notification (webhook/email)
+	NextJS-->>Browser: 200 OK (suggestion accepted)
+	deactivate NextJS
+
+	Notif->>Admin: Deliver notification (email/in-app)
+	Admin->>Admin: Review suggestion
+
+	alt Admin replies or updates status
+		Admin->>NextJS: POST /api/suggestions/{id}/action {status, response}
+		activate NextJS
+		NextJS->>DB: Save admin response & status
+		NextJS->>Notif: Notify student of response
+		NextJS-->>Admin: 200 OK (action saved)
+		deactivate NextJS
+		Notif->>Student: Deliver response (email/push/in-app)
+	else Admin flags for follow-up
+		Admin->>DB: Add moderation note / escalate
+	end
+
+	%% Optional alternate flows
+	alt Gemini fails or rate-limited
+		NextJS-->>DB: Keep original suggestion (status: pending-ai)
+		NextJS->>Notif: Alert admin that AI enrichment failed
+	end
+
+	%% End
+
